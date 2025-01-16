@@ -1,0 +1,315 @@
+options(stringsAsFactors = FALSE)
+library(tidyverse)
+library(cowplot)
+library(hexbin)
+library(ggdendro)
+library(ggrepel)
+library(DESeq2)
+library(pheatmap)
+getwd()
+wd = getwd()
+outir = wd
+metadata <- read.delim("input_files/ENCODE4.16CellLines.BruChase.Sample.Metadata.txt",sep="\t",header=TRUE)
+head(metadata)
+counts <- read.delim("input_files/ENCODE4.16CellLines.BruChase.FeatureTypes.Counts.bed",sep="\t",header = T)
+head(counts)
+unique(counts$featuretype)
+# filter for exon_sense and remove featuretype column
+counts <- counts[counts$featuretype=="exon_sense",-which(colnames(counts)=="featuretype")]
+rownames(counts) <- counts$gene
+identical(colnames(counts)[-c(1:6)],metadata$sample_id)
+mysamples.s60 <- metadata$sample_id[metadata$chase_time %in% c(0,6)]
+mysamples.s20 <- metadata$sample_id[metadata$chase_time %in% c(0,2)]
+mysamples.s62 <- metadata$sample_id[metadata$chase_time %in% c(2,6)]
+cl.s60.ex.results <- lapply(unique(metadata$cell_line),function(cl){
+print(cl)
+mysamples <- metadata$sample_id[metadata$cell_line==cl & metadata$sample_id %in% mysamples.s60]
+coldata <- data.frame(
+chase_time = factor(metadata$chase_time[metadata$sample_id %in% mysamples])
+)
+rownames(coldata) <- mysamples
+cts <- round(counts[,mysamples])
+dds <- DESeqDataSetFromMatrix(cts,coldata,design = ~chase_time)
+dds <- DESeq(dds)
+rn <- resultsNames(dds)
+res <- results(dds,name=rn[2]) #
+shrunk <- lfcShrink(dds,coef = 2,type = "apeglm")
+return(list(dds=dds,res=res,shrunk=shrunk))
+})
+names(cl.s60.ex.results) <- unique(metadata$cell_line)
+tmp_dir = paste0(outir,"/tmp")
+outir
+outir
+rm(outir)
+outdir = wd
+tmp_dir = paste0(outdir,"/tmp")
+tmp_dir
+dir.create(tmp_dir,showWarnings = F,recursive = T)
+s60.LFC <- sapply(cl.s60.ex.results,function(cl){
+cl$res$log2FoldChange
+})
+head(cl.s60.ex.results$A673)
+str(cl.s60.ex.results)
+class(cl.s60.ex.results)
+s60.LFC <- sapply(cl.s60.ex.results,function(cl){
+cl$res$log2FoldChange
+})
+s60.LFC.df <- as.data.frame(s60.LFC,row.names = rownames(counts))
+View(s60.LFC.df)
+colnames(s60.LFC.df)
+colnames(s60.LFC.df) = paste0(colnames(s60.LFC.df),"_6vs0_log2FC")
+mysamples.s20 <- metadata$sample_id[metadata$chase_time %in% c(0,2)]
+mysamples.s62 <- metadata$sample_id[metadata$chase_time %in% c(2,6)]
+mysamples.s20 <- metadata$sample_id[metadata$chase_time %in% c(0,2)]
+mysamples.s62 <- metadata$sample_id[metadata$chase_time %in% c(2,6)]
+# 2h vs 0h Log2FC
+cl.s20.ex.results <- lapply(unique(metadata$cell_line),function(cl){
+print(cl)
+mysamples <- metadata$sample_id[metadata$cell_line==cl & metadata$sample_id %in% mysamples.s20]
+coldata <- data.frame(
+chase_time = factor(metadata$chase_time[metadata$sample_id %in% mysamples])
+)
+rownames(coldata) <- mysamples
+cts <- round(counts[,mysamples])
+dds <- DESeqDataSetFromMatrix(cts,coldata,design = ~chase_time)
+dds <- DESeq(dds)
+rn <- resultsNames(dds)
+res <- results(dds,name=rn[2]) #
+shrunk <- lfcShrink(dds,coef = 2,type = "apeglm")
+return(list(dds=dds,res=res,shrunk=shrunk))
+})
+names(cl.s20.ex.results) <- unique(metadata$cell_line)
+s20.LFC <- sapply(cl.s20.ex.results,function(cl){
+cl$res$log2FoldChange
+})
+s20.LFC.df <- as.data.frame(s20.LFC,row.names = rownames(counts))
+colnames(s20.LFC.df) <- paste0(colnames(s20.LFC.df),"_2vs0_log2FC")
+# 6h vs 2h Log2FC
+cl.s62.ex.results <- lapply(unique(metadata$cell_line),function(cl){
+print(cl)
+mysamples <- metadata$sample_id[metadata$cell_line==cl & metadata$sample_id %in% mysamples.s62]
+coldata <- data.frame(
+chase_time = factor(metadata$chase_time[metadata$sample_id %in% mysamples])
+)
+rownames(coldata) <- mysamples
+cts <- round(counts[,mysamples])
+dds <- DESeqDataSetFromMatrix(cts,coldata,design = ~chase_time)
+dds <- DESeq(dds)
+rn <- resultsNames(dds)
+res <- results(dds,name=rn[2]) #
+shrunk <- lfcShrink(dds,coef = 2,type = "apeglm")
+return(list(dds=dds,res=res,shrunk=shrunk))
+})
+names(cl.s62.ex.results) <- unique(metadata$cell_line)
+s62.LFC <- sapply(cl.s62.ex.results,function(cl){
+cl$res$log2FoldChange
+})
+s62.LFC.df <- as.data.frame(s62.LFC,row.names = rownames(counts))
+colnames(s62.LFC.df) <- paste0(colnames(s62.LFC.df),"_6vs2_log2FC")
+stab.LFC.df = merge(s20.LFC.df,s62.LFC.df,by = 0, all = TRUE)
+View(stab.LFC.df)
+stab.sorted.cols = sort(colnames(stab.LFC.df))
+stab.LFC.df = stab.LFC.df[,stab.sorted.cols]
+View(stab.LFC.df)
+stab.LFC.df$genes = rownames(stab.LFC.df)
+View(stab.LFC.df)
+stab.LFC.df = merge(s20.LFC.df,s62.LFC.df,by = 0, all = TRUE)
+stab.sorted.cols = sort(colnames(stab.LFC.df))
+stab.LFC.df = stab.LFC.df[,stab.sorted.cols]
+stab.LFC.df = stab.LFC.df %>%
+mutate(genes = rownames(s20.LFC.df)) %>%
+relocate(genes)
+View(stab.LFC.df)
+head(rownames(s20.LFC.df))
+head(rownames(s62.LFC.df))
+View(s20.LFC.df)
+View(stab.LFC.df)
+stab.LFC.df = merge(s20.LFC.df,s62.LFC.df,by = 0, all = TRUE)
+colnames(stab.LFC.df)[1]
+colnames(stab.LFC.df)[1] = "genes"
+stab.sorted.cols = sort(colnames(stab.LFC.df)[2:ncol(stab.LFC.df)])
+stab.sorted.cols
+stab.LFC.df = stab.LFC.df[,c("genes",stab.sorted.cols)]
+# Remove rows where all log2FC values are 0 or NA
+stab.LFC.df.2 = stab.LFC.df[rowSums(is.na(stab.LFC.df[2:ncol(stab.LFC.df)])) != ncol(df[2:ncol(stab.LFC.df)]), ]
+# Remove rows where all log2FC values are 0 or NA
+stab.LFC.df.2 = stab.LFC.df[rowSums(is.na(stab.LFC.df[2:ncol(stab.LFC.df)])) != ncol(stab.LFC.df[2:ncol(stab.LFC.df)]), ]
+View(stab.LFC.df.2)
+# Find out all genes at 0h and 2h whose mean exon sense RPKM (mean across 2 replicates) is >= 0.5 across all cell lines
+es.df = read.delim("input_files/ENCODE4.16CellLines.ReplicatesMeanExonSenseRPKM.bed", sep = "\t", header = T, na.strings = c(""," ","NA"),
+check.names = F)
+rm(s60.*)
+rm(s60.LFC.df)
+rm(s60.LFC)
+head(es.df)
+colnames(es.df)
+fixed.gene.cols = colnames(es.df)[1:7]
+es.df.2 = es.df %>%
+select(all_of(fixed.gene.cols),grep(paste(c("_ES_0h","_ES_2h"),collapse = "|"),colnames(.),value = T)) %>%
+filter(if_all(ends_with("_0h"), ~ . > 0.5)) %>%
+filter(if_all(ends_with("_2h"), ~ . > 0.5)) %>%
+as.data.frame()
+# Biotype info
+biotype.df = read.delim("input_files/hg38.gencode_29.ensembl_gene.transcript_biotype_name_entrez.gencode.txt",
+sep = "\t", header = T, na.strings = c(""," ","NA"),check.names = F)
+biotype.df.2 = biotype.df %>%
+mutate(ensembl_gene = paste(ensembl_gene,gene_name,sep = "/")) %>%
+select(ensembl_gene,gene_type) %>%
+as.data.frame()
+View(biotype.df.2)
+es.df.2 = left_join(es.df.2,biotype.df.2, by = c("gene"="ensembl_gene")) %>%
+relocate(gene_type, .after = strand) %>%
+select(-featuretype) %>%
+filter(gene_type == "protein_coding") %>%
+as.data.frame()
+# Remove the following 2 genes because one is duplicated symbols, the other doesn't have log2FC data downstream
+# ENSG00000187522.15/HSPA14
+# ENSG00000284024.2/HSPA14
+del.genes = c("ENSG00000187522.15/HSPA14","ENSG00000284024.2/HSPA14")
+es.df.2 = es.df.2[! (es.df.2$gene %in% del.genes),]
+View(es.df.2)
+library(openxlsx)
+del.final = read.xlsx("C:/bedik/ENCODE_publications_bruseq/RNA_dynamics/paper_drafts/v4_2024-05-26/Table S6-ScaledStability 2h & 6h.xlsx",startRow = 2,
+colNames = T)
+View(del.final)
+del.final = del.final %>%
+mutate(genes = paste(gene,gene.name,sep = "/"),.before = gene)
+length(intersect(del.final$genes,es.df.2$gene))
+del.missing = es.df.2[!(es.df.2$gene %in% del.final$genes),]
+View(del.missing)
+View(es.df)
+View(biotype.df)
+View(stab.LFC.df.2)
+stab.LFC.df.2 = stab.LFC.df.2[stab.LFC.df.2$genes!="ENSG00000254772.9/EEF1G",]
+es.df.2 = es.df %>%
+select(all_of(fixed.gene.cols),grep(paste(c("_ES_0h","_ES_2h"),collapse = "|"),colnames(.),value = T)) %>%
+filter(if_all(ends_with("_0h"), ~ . > 0.5)) %>%
+filter(if_all(ends_with("_2h"), ~ . > 0.5)) %>%
+as.data.frame()
+es.df.2 = left_join(es.df.2,biotype.df.2, by = c("gene"="ensembl_gene")) %>%
+relocate(gene_type, .after = strand) %>%
+select(-featuretype) %>%
+filter(gene_type == "protein_coding") %>%
+as.data.frame()
+es.df.2 = es.df.2[es.df.2$gene!="ENSG00000254772.9/EEF1G",]
+# Remove the following gene because of duplicated symbol
+# ENSG00000187522.15/HSPA14
+# ENSG00000284024.2/HSPA14
+del.genes = c("ENSG00000187522.15/HSPA14","ENSG00000284024.2/HSPA14")
+es.df.2 = es.df.2[! (es.df.2$gene %in% del.genes),]
+colnames(es.df.2) = gsub("Panc1","panc1",colnames(es.df.2))
+del.final = read.xlsx("C:/bedik/ENCODE_publications_bruseq/RNA_dynamics/paper_drafts/v4_2024-05-26/Table S6-ScaledStability 2h & 6h.xlsx",startRow = 2,
+colNames = T)
+del.final = del.final %>%
+mutate(genes = paste(gene,gene.name,sep = "/"),.before = gene)
+del.missing = es.df.2[!(es.df.2$gene %in% del.final$genes),]
+rm(del.final,del.missing)
+# Shortlist only expressed genes based on Part A
+stab.LFC.df.3 = stab.LFC.df.2 %>%
+filter(genes %in% es.df.2$gene)
+View(stab.LFC.df.3)
+# Rescale the values between 0 and 1
+stab.df.all.pc.scaled = data.frame(matrix(nrow = nrow(stab.LFC.df.3), ncol = ncol(stab.LFC.df.3)))
+str(stab.df.all.pc.scaled)
+# Rescale the values between 0 and 1
+stab.df.all.pc.scaled = data.frame(matrix(nrow = nrow(stab.LFC.df.3), ncol = ncol(stab.LFC.df.3)))
+str(stab.df.all.pc.scaled)
+stab.df.all.pc.scaled[,c(1)] = stab.LFC.df.3[,c(1)]
+colnames(stab.df.all.pc.scaled) = colnames(stab.LFC.df.3)
+colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)] = paste0(colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)],".scaled")
+for (i in 2:ncol(stab.df.all.pc.scaled)) {
+stab.df.all.pc.scaled[,i] = rescale(stab.LFC.df.3[,i], to = c(0,1))
+}
+library(scales)
+for (i in 2:ncol(stab.df.all.pc.scaled)) {
+stab.df.all.pc.scaled[,i] = rescale(stab.LFC.df.3[,i], to = c(0,1))
+}
+head(stab.LFC.df.3)
+stab.fixed.cols = colnames(stab.LFC.df.3)[1]
+# Rescale the values between 0 and 1
+stab.df.all.pc.scaled = data.frame(matrix(nrow = nrow(stab.LFC.df.3), ncol = ncol(stab.LFC.df.3)))
+str(stab.df.all.pc.scaled)
+stab.df.all.pc.scaled[,c(1)] = stab.LFC.df.3[,c(1)]
+colnames(stab.df.all.pc.scaled) = colnames(stab.LFC.df.3)
+# Rescale the values between 0 and 1
+stab.df.all.pc.scaled = data.frame(matrix(nrow = nrow(stab.LFC.df.3), ncol = ncol(stab.LFC.df.3)))
+str(stab.df.all.pc.scaled)
+stab.df.all.pc.scaled[,c(1)] = stab.LFC.df.3[,c(1)]
+colnames(stab.df.all.pc.scaled) = colnames(stab.LFC.df.3)
+colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)] = gsub("_log2FC","_ES.LFC.scaled",colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)])
+for (i in 2:ncol(stab.df.all.pc.scaled)) {
+stab.df.all.pc.scaled[,i] = rescale(stab.LFC.df.3[,i], to = c(0,1))
+}
+head(stab.LFC.df.3)
+colnames(stab.LFC.df.3)[2:ncol(stab.LFC.df.3)] = gsub("_log2FC","_ES.LFC",colnames(stab.LFC.df.3)[2:ncol(stab.LFC.df.3)])
+stab.fixed.cols = colnames(stab.LFC.df.3)[1]
+colnames(stab.LFC.df.3)
+stab.fixed.cols = colnames(stab.LFC.df.3)[1]
+# Rescale the values between 0 and 1
+stab.df.all.pc.scaled = data.frame(matrix(nrow = nrow(stab.LFC.df.3), ncol = ncol(stab.LFC.df.3)))
+str(stab.df.all.pc.scaled)
+stab.df.all.pc.scaled[,c(1)] = stab.LFC.df.3[,c(1)]
+colnames(stab.df.all.pc.scaled) = colnames(stab.LFC.df.3)
+colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)] = paste0(colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)],".scaled")
+for (i in 2:ncol(stab.df.all.pc.scaled)) {
+stab.df.all.pc.scaled[,i] = rescale(stab.LFC.df.3[,i], to = c(0,1))
+}
+stab.fixed.cols
+# Merge the scaled values with original df
+stab.df.all.pc.2 = merge(stab.LFC.df.3, stab.df.all.pc.scaled, by = stab.fixed.cols)
+stab.df.all.pc.2.CLorder = sort(colnames(stab.df.all.pc.2)[2:ncol(stab.df.all.pc.2)])
+stab.df.all.pc.2.CLorder
+rm(stab.df.all.pc.2,stab.df.all.pc.2.CLorder)
+stab.df.all.pc.scaled = left_join(stab.df.all.pc.scaled,es.df.2[,1:6],join_by("genes" = "gene"))
+stab.df.all.pc.scaled = left_join(stab.df.all.pc.scaled,es.df.2[,1:6],join_by("genes" == "gene"))
+stab.df.all.pc.scaled = data.frame(matrix(nrow = nrow(stab.LFC.df.3), ncol = ncol(stab.LFC.df.3)))
+str(stab.df.all.pc.scaled)
+stab.df.all.pc.scaled[,c(1)] = stab.LFC.df.3[,c(1)]
+colnames(stab.df.all.pc.scaled) = colnames(stab.LFC.df.3)
+colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)] = paste0(colnames(stab.df.all.pc.scaled)[2:ncol(stab.df.all.pc.scaled)],".scaled")
+for (i in 2:ncol(stab.df.all.pc.scaled)) {
+stab.df.all.pc.scaled[,i] = rescale(stab.LFC.df.3[,i], to = c(0,1))
+}
+stab.df.all.pc.scaled = left_join(stab.df.all.pc.scaled,es.df.2[,1:6],join_by("genes" == "gene")) %>%
+relocate(c(chr,start,end), .before = "genes") %>%
+relocate(c(score,strand),.after = "genes")
+View(stab.df.all.pc.scaled)
+# Check with existing table
+del.df = read.xlsx("C:/bedik/ENCODE_publications_bruseq/RNA_dynamics/paper_drafts/v4_2024-05-26/Table S6-ScaledStability 2h & 6h.xlsx",startRow = 2,colNames = T)
+del.df$genes = paste(del.df$gene,del.df$gene.name,sep = "/")
+del.merged = left_join(stab.df.all.pc.scaled,del.df,by = "genes")
+cor.test(del.merged$A673_2v0_ES.LFC.scaled,del.merged$A673_2vs0_ES.LFC.scaled)
+View(del.merged)
+del.merged.fixed.cols = grep("ES.LFC.scaled",colnames(del.merged),value = T,invert = T)
+del.merged.fixed.cols
+del.merged.sorted.lfc.cols = sort(grep("ES.LFC.scaled",colnames(del.merged),value = T))
+del.merged.sorted.lfc.cols
+del.merged = del.merged %>%
+select(all_of(del.merged.fixed.cols),all_of(del.merged.sorted.lfc.cols))
+View(del.merged)
+del.merged = left_join(stab.df.all.pc.scaled,del.df,by = "genes")
+del.merged.fixed.cols = grep("ES.LFC.scaled",colnames(del.merged),value = T,invert = T)
+del.merged.sorted.lfc.cols = sort(grep("ES.LFC.scaled",colnames(del.merged),value = T))
+del.merged = del.merged %>%
+select(all_of(del.merged.fixed.cols),all_of(del.merged.sorted.lfc.cols)) %>%
+mutate(across(contains("ES.LFC.scaled"), ~round(., 2)))
+cor.test(del.merged$A673_2v0_ES.LFC.scaled,del.merged$A673_2vs0_ES.LFC.scaled)
+View(del.merged)
+# # Check with existing table
+# del.df = read.xlsx("C:/bedik/ENCODE_publications_bruseq/RNA_dynamics/paper_drafts/v4_2024-05-26/Table S6-ScaledStability 2h & 6h.xlsx",startRow = 2,colNames = T)
+# del.df$genes = paste(del.df$gene,del.df$gene.name,sep = "/")
+# del.merged = left_join(stab.df.all.pc.scaled,del.df,by = "genes")
+# del.merged.fixed.cols = grep("ES.LFC.scaled",colnames(del.merged),value = T,invert = T)
+# del.merged.sorted.lfc.cols = sort(grep("ES.LFC.scaled",colnames(del.merged),value = T))
+# del.merged = del.merged %>%
+#   select(all_of(del.merged.fixed.cols),all_of(del.merged.sorted.lfc.cols)) %>%
+#   mutate(across(contains("ES.LFC.scaled"), ~round(., 2)))
+# cor.test(del.merged$A673_2v0_ES.LFC.scaled,del.merged$A673_2vs0_ES.LFC.scaled)
+rm(del.df,del.merged,del.merged.fixed.cols,del.merged.sorted.lfc.cols)
+outdir
+outdir = paste0(wd,"/outputs")
+outdir
+dir.create(outdir,showWarnings = F, recursive = T)
+View(stab.df.all.pc.scaled)
+write.xlsx(stab.df.all.pc.scaled,paste0(outdir,"/sclaed_stabilities.xlsx"),overwrite = T)
+write.xlsx(stab.df.all.pc.scaled,paste0(outdir,"/scaled_stabilities.xlsx"),overwrite = T)
