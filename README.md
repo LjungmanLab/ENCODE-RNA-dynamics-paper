@@ -1,7 +1,5 @@
 # ENCODE-RNA-dynamics-paper
 
-_____________________________________________________________________________
-
 This repo contains data generation and analysis code used in this paper:
 
 Isoform and pathway-specific regulation of post-transcriptional RNA processing in human cells
