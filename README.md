@@ -1,7 +1,5 @@
 # ENCODE-RNA-dynamics-paper
 
-This repo is currently under development. 
-
 _____________________________________________________________________________
 
 This repo contains data generation and analysis code used in this paper:
