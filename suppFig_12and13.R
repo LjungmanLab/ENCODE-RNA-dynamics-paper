@@ -1,14 +1,14 @@
 #############################################################################################################
 
 ## This code was used to generate supplementary figures 12 and 13, and supplementary table S9              ## 
-## Input file is supplemetary Table S7 Relative intron stability and SI values.xlsx - 6vs0.tsv             ##                                               
+## Input file is supplemetary Table S8 Relative intron stability and SI values.xlsx - 6vs0.tsv             ##                                               
 
 #############################################################################################################
 
 library(tidyverse)
 
 # Read the input file
-d0<-read.delim("Table S7 Relative intron stability and SI values.xlsx - 6vs0.tsv", 
+d0<-read.delim("Table S8 Relative intron stability and SI values.xlsx - 6vs0.tsv", 
                h= TRUE, stringsAsFactors = FALSE, sep = "\t", na.strings = c(""," ","NA"), check.names = F)
 
 # Create a working dataset filtered by isoform count and intron status
@@ -191,6 +191,7 @@ ggsave("stable_intron_count_1.pdf",
        height = 6,
        bg="#FFFFFF",
        dpi = 300)
+
 
 
 
