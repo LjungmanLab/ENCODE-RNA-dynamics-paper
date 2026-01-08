@@ -8,7 +8,7 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
 ----------------------------------------------------------------------------------------
 
-1. compute-stability.R
+1.compute-stability.R
 
 Calculates the relative stability of exons during the 0 to 2 hour and 2 to 6 hour chase periods. RNA stability is represented as Log2 fold change values, which are further scaled from 0 to 1 for each cell line. 
 
@@ -19,6 +19,14 @@ Calculates the relative stability of exons during the 0 to 2 hour and 2 to 6 hou
 
 Determines the relative stability of intronic RNA, enhancer RNA (eRNA), PROMPTs and readthrough (RT) RNA, using exonic RNA as the reference. This analysis is related to Main Figure 1b. 
 
-3. gene_exonic_stability_correlation_heatmaps.R
+3.01D_bru026_SI_plots.R
 
+Plots the splicing indices for common introns across 16 cell lines at 0, 2 and 6 hours. This analysis is presented in main figure 1D.
+- Input files: input_files_Fig01D.zip
+
+4.02AB_gene_exonic_stability_correlation_heatmaps.R
+
+Computes the correlation coefficients among the 16 cell lines using exonic relative stability values (Log2 fold change). This analysis corresponds to main figures 2A and 2B.
+
+4.
 
