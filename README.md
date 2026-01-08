@@ -17,7 +17,8 @@ Calculates the relative stability of exonic RNA during the 0 to 2 hour and 2 to 
 
 2. <>Fig 1B
 
-Determines the relative stability of intronic RNA, enhancer RNA (eRNA), PROMPTs and readthrough (RT) RNA, using exonic RNA as the reference. This analysis is related to Main Figure 1b. 
+Determines the relative stability of intronic RNA, enhancer RNA (eRNA), PROMPTs and readthrough (RT) RNA, using exonic RNA as the reference. This analysis is related to Main Figure 1B.
+- Input file: Supplemental Table S2, sheet "".
 
 3. 01D_bru026_SI_plots.R
 
@@ -30,12 +31,16 @@ Computes the correlation coefficients among the 16 cell lines using exonic relat
 
 5. <> dist code
 
+<>
+
 6. 04F_026h_SIbased_exonsONLY_IsoPct_trends.R
 
 Measures isoform percentages and their prevalence over time. Findings are shown in Main Figure 4F. 
 - Input files: input_files_Fig04F_1.zip, input_files_Fig04F_2.zip, input_files_Fig04F_3.zip, input_files_Fig04F_4.zip, input_files_Fig04F_5.zip
 
 7. <> Fig 6
+
+<>
 
 8. suppFig_12and13.R
 
