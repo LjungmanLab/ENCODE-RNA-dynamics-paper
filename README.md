@@ -11,8 +11,7 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 1. **compute-stability.R**
 
     Calculates the relative stability of exonic RNA during the 0 to 2 hour and 2 to 6 hour chase periods. RNA stability is represented as Log2 fold change values, which are further scaled from 0 to 1 for each cell line.
-   
--  Input files: general_input_files.zip
+       <li><b>Input files:</b> general_input_files.zip<li>
 -  Supplemental Table S13 provides the ENCODE accession numbers for the genic features quantifications files on the ENCODE portal (https://www.encodeproject.org/), containing the exon_sense read counts used in this analysis.
 
 2. **<>Fig 1B**
