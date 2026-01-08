@@ -22,12 +22,12 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
 3. 01D_bru026_SI_plots.R
 
-  Generates plots of splicing indices for common introns across 16 cell lines at 0, 2 and 6 hours, as displayed in Main Figure 1D.
+    Generates plots of splicing indices for common introns across 16 cell lines at 0, 2 and 6 hours, as displayed in Main Figure 1D.
 - Input files: input_files_Fig01D.zip
 
 4. 02AB_gene_exonic_stability_correlation_heatmaps.R
 
-  Computes the correlation coefficients among the 16 cell lines using exonic relative stability values (Log2 fold change). This analysis corresponds to Main Figures 2A and 2B.
+    Computes the correlation coefficients among the 16 cell lines using exonic relative stability values (Log2 fold change). This analysis corresponds to Main Figures 2A and 2B.
 
 5. <> dist code
 
@@ -35,7 +35,7 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
 6. 04F_026h_SIbased_exonsONLY_IsoPct_trends.R
 
-  Measures isoform percentages and their prevalence over time. Findings are shown in Main Figure 4F. 
+    Measures isoform percentages and their prevalence over time. Findings are shown in Main Figure 4F. 
 - Input files: input_files_Fig04F_1.zip, input_files_Fig04F_2.zip, input_files_Fig04F_3.zip, input_files_Fig04F_4.zip, input_files_Fig04F_5.zip
 
 7. <> Fig 6
@@ -44,6 +44,6 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
 8. suppFig_12and13.R
 
-  Defines thresholds for classifying introns as "Stable" or "Retained", and generates the plots shown in Supplemental Figures 12 and 13.
+    Defines thresholds for classifying introns as "Stable" or "Retained", and generates the plots shown in Supplemental Figures 12 and 13.
 - Input files: Supplemental Table S8, sheet "6vs0".
 
