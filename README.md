@@ -12,9 +12,8 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
 Calculates the relative stability of exons during the 0 to 2 hour and 2 to 6 hour chase periods. RNA stability is represented as Log2 fold change values, which are further scaled from 0 to 1 for each cell line. 
 
-Input files: general_input_files.zip
-
-Supplemental table S13 lists the ENCODE accession numbers for the genic features quantifications files that contain the exon_sense read counts used in this analysis.
+- Input files: general_input_files.zip
+- Supplemental table S13 lists the ENCODE accession numbers for the genic features quantifications files that contain the exon_sense read counts used in this analysis.
 
 2.  
 
