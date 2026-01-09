@@ -19,15 +19,12 @@ df.stab2h <- df.main %>% mutate(gene_ID = paste(gene, `gene name`, sep="/")) %>%
 df.stab6h <- df.main %>% mutate(gene_ID = paste(gene, `gene name`, sep="/")) %>%
   select(gene_ID, matches("_6v2_ES.LFC.scaled"))
 
-
 # check for any differences in the two gene lists
 df.stab2h$gene_ID[!(df.stab2h$gene_ID %in% df.stab6h$gene_ID)]
-
 
 # Convert from wide to long table format
 df2h <- df.stab2h %>% pivot_longer (!gene_ID, names_to = 'col_names', values_to = 'value') %>% 
   separate('col_names', c('cellline', 'comparison', 'type'),  sep='_', remove=F)
-
 
 df6h <- df.stab6h %>% pivot_longer (!gene_ID, names_to = 'col_names', values_to = 'value') %>% 
   separate('col_names', c('cellline', 'comparison', 'type'),  sep='_', remove=F)
@@ -42,7 +39,6 @@ i = 1
 
 for ( i in 1:length(list_cl)){
   cell_line = list_cl[[i]]
-  
   
   cat (cell_line,"\n")
   
@@ -75,7 +71,6 @@ for ( i in 1:length(list_cl)){
   
   
   d2 <- df6h[df6h$cellline == cell_line,]
-  
   
   p1<-ggplot(d2, aes(x=value)) +
     geom_histogram(fill="#b05c38", color="#b05c38", binwidth=0.01, alpha = 1) +
@@ -124,7 +119,6 @@ ggsave("ENCODE16CL_2v0_scaledLFCdist_allcelllines.png",
        height = 8, 
        dpi = 300)
 
-
 ggsave("ENCODE16CL_2v0_scaledLFCdist_allcelllines.pdf", 
        plot = p2 , 
        width = 25, 
@@ -155,12 +149,12 @@ ggsave("ENCODE16CL_6v2_scaledLFCdist_allcelllines.png",
        height = 8, 
        dpi = 300)
 
-
 ggsave("ENCODE16CL_6v2_scaledLFCdist_allcelllines.pdf", 
        plot = p3 , 
        width = 25, 
        height = 8, 
        dpi = 300)
+
 
 
 
