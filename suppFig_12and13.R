@@ -11,6 +11,7 @@ library(tidyverse)
 d0<-read.delim("Table S8 Relative intron stability and SI values.xlsx - 6vs0.tsv", 
                h= TRUE, stringsAsFactors = FALSE, sep = "\t", na.strings = c(""," ","NA"), check.names = F)
 
+
 # Create a working dataset filtered by isoform count and intron status
 d1<-d0 %>% filter(isoform_count == 1 & is_TRUE_intron == "Yes")
 
@@ -191,6 +192,7 @@ ggsave("stable_intron_count_1.pdf",
        height = 6,
        bg="#FFFFFF",
        dpi = 300)
+
 
 
 
