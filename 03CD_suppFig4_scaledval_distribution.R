@@ -1,7 +1,7 @@
 #############################################################################################################
 
 ## This code was used to generate Main Figures 3C and 3D, as well as Supplemental Figure 4.              ## 
-## Input file is Supplemental Table S7                                                                    ##                                               
+## Input file is Supplemental Table S7                                                                   ##                                               
 
 #############################################################################################################
 
@@ -159,6 +159,7 @@ ggsave("ENCODE16CL_6v2_scaledLFCdist_allcelllines.pdf",
        width = 25, 
        height = 8, 
        dpi = 300)
+
 
 
 
