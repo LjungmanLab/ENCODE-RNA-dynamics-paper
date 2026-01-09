@@ -28,9 +28,9 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
     Computes correlation coefficients among the 16 cell lines using exonic relative stability values (Log2 fold change). This analysis corresponds to Main Figures 2A and 2B.
 
-5. **<> dist code**
+5. **03CD_suppFig4_scaledval_distribution.R**
 
-    Plots the distribution of scaled RNA stability values for each cell line. The resulting plots can be found in Main Figure 3C and 3D, as well as Supplemental Figure 4.
+    Plots the distribution of scaled RNA stability values for each cell line. The resulting plots can be found in Main Figures 3C and 3D, as well as Supplemental Figure 4.
    - Input file: Supplemental Table S7
 
 7. **04F_026h_SIbased_exonsONLY_IsoPct_trends.R**
