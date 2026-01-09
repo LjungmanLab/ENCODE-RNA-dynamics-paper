@@ -58,13 +58,15 @@ for ( i in 1:length(list_cl)){
   ggsave(file=paste0("ENCODE16CL_2v0_scaledLFCdist_", cell_line , ".png"), 
          plot = p , 
          width = 6, 
-         height = 5, 
+         height = 5,
+         bg="#FFFFFF",
          dpi = 300)
   
   ggsave(file=paste0("ENCODE16CL_2v0_scaledLFCdist_", cell_line , ".pdf"), 
          plot = p , 
          width = 6, 
-         height = 5, 
+         height = 5,
+         bg="#FFFFFF",
          dpi = 300)
   
   #####6v2
@@ -85,13 +87,15 @@ for ( i in 1:length(list_cl)){
   ggsave(file=paste0("ENCODE16CL_6v2_scaledLFCdist_", cell_line , ".png"), 
          plot = p1 , 
          width = 6, 
-         height = 5, 
+         height = 5,
+         bg="#FFFFFF",
          dpi = 300)
   
   ggsave(file=paste0("ENCODE16CL_6v2_scaledLFCdist_", cell_line , ".pdf"), 
          plot = p1 , 
          width = 6, 
-         height = 5, 
+         height = 5,
+         bg="#FFFFFF",
          dpi = 300)
   
 }
@@ -118,14 +122,16 @@ p2<-ggplot(df2h, aes(x=value)) +
 ggsave("ENCODE16CL_2v0_scaledLFCdist_allcelllines.png", 
        plot = p2 , 
        width = 25, 
-       height = 8, 
+       height = 8,
+       bg="#FFFFFF",
        dpi = 300)
 
 
 ggsave("ENCODE16CL_2v0_scaledLFCdist_allcelllines.pdf", 
        plot = p2 , 
        width = 25, 
-       height = 8, 
+       height = 8,
+       bg="#FFFFFF",
        dpi = 300)
 
 
@@ -150,15 +156,18 @@ p3<-ggplot(df6h, aes(x=value)) +
 ggsave("ENCODE16CL_6v2_scaledLFCdist_allcelllines.png", 
        plot = p3 , 
        width = 25, 
-       height = 8, 
+       height = 8,
+       bg="#FFFFFF",
        dpi = 300)
 
 
 ggsave("ENCODE16CL_6v2_scaledLFCdist_allcelllines.pdf", 
        plot = p3 , 
        width = 25, 
-       height = 8, 
+       height = 8,
+       bg="#FFFFFF",
        dpi = 300)
+
 
 
 
