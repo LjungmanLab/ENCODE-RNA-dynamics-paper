@@ -14,7 +14,7 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
    - Input files: general_input_files.zip
    - Supplemental Table S13 provides the ENCODE accession numbers for the genic features quantifications files on the ENCODE portal (https://www.encodeproject.org/) which contain the exon_sense read counts used in this analysis.
 
-2. **01B_rna_categories_stability**
+2. **01B_rna_categories_stability.R**
 
     Determines the relative stability of intronic RNA, enhancer RNA (eRNA), PROMPTs and readthrough (RT) RNA, using exonic RNA as the reference. This analysis is related to Main Figure 1B.
    - Input file: Supplemental Table S2
