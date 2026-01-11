@@ -14,10 +14,10 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
    - Input files: general_input_files.zip
    - Supplemental Table S13 provides the ENCODE accession numbers for the genic features quantifications files on the ENCODE portal (https://www.encodeproject.org/) which contain the exon_sense read counts used in this analysis.
 
-2. **<>Fig 1B**
+2. **01B_rna_categories_stability**
 
     Determines the relative stability of intronic RNA, enhancer RNA (eRNA), PROMPTs and readthrough (RT) RNA, using exonic RNA as the reference. This analysis is related to Main Figure 1B.
-   - Input file: Supplemental Table S2, sheet "".
+   - Input file: Supplemental Table S2
 
 4. **01D_bru026_SI_plots.R**
 
@@ -27,10 +27,11 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 4. **02AB_gene_exonic_stability_correlation_heatmaps.R**
 
     Computes correlation coefficients among the 16 cell lines using exonic relative stability values (Log2 fold change). This analysis corresponds to Main Figures 2A and 2B.
+   - Supplemental Table S5 lists the log2 fold change values for the two chase periods used in this analysis.
 
-5. **03CD_suppFig4_scaledval_distribution.R**
+6. **03CD_suppFig4_scaledval_distribution.R**
 
-    Plots the distribution of scaled RNA stability values for each cell line. The resulting plots can be found in Main Figures 3C and 3D, as well as Supplemental Figure 4.
+    Plots the distribution of scaled RNA stability values for each cell line. The resulting plots can be found in Main Figures 3C and 3D, as well as Supplemental Figure 5.
    - Input file: Supplemental Table S7
 
 7. **04F_026h_SIbased_exonsONLY_IsoPct_trends.R**
