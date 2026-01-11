@@ -27,7 +27,7 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 4. **02AB_gene_exonic_stability_correlation_heatmaps.R**
 
     Computes correlation coefficients among the 16 cell lines using exonic relative stability values (Log2 fold change). This analysis corresponds to Main Figures 2A and 2B.
-   - Supplemental Table S5 lists the log2 fold change values for the two chase periods used in this analysis.
+   - Supplemental Table S14 lists the log2 fold change values for the two chase periods used in this analysis.
 
 6. **03CD_suppFig4_scaledval_distribution.R**
 
