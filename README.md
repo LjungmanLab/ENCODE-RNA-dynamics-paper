@@ -41,7 +41,7 @@ bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
 
 8. **06BD_fraction_splicing_category**
 
-    Calculates the fractions of four splicing pattern categories per sample, then generates the stacked bar plot for each of the three timepoints. The 0h plot is shown in Main Figure 6B. This script also creates Main Figure 6D, which shows the mean and standard deviation of the fractions for each pattern at the three timepoints.
+    Calculates the fractions of four splicing pattern categories per sample, then generates the stacked bar plot for each of the three timepoints. The 0h plot is shown in Main Figure 6B. This script also creates Main Figure 6D, which shows the mean and standard deviation of the fractions for each pattern at the three time points.
    - Input files: Supplemental Tables S10, S11 and S12
 
 8. **suppFig_12and13.R**
