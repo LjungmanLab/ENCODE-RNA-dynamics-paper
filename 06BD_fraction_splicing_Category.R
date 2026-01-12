@@ -5,8 +5,8 @@ library(ggplot2)
 
 # load input tables
 table_0h <- read_tsv("Supplemental_Table_S10_0h.tsv")
-table_2h <- read_tsv("Supplemental_Table_S10_2h.tsv")
-table_6h <- read_tsv("Supplemental_Table_S10_6h.tsv")
+table_2h <- read_tsv("Supplemental_Table_S11_2h.tsv")
+table_6h <- read_tsv("Supplemental_Table_S12_6h.tsv")
 
 
 #### 0hr 
