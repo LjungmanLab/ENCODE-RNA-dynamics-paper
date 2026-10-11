@@ -7,7 +7,7 @@ Narayanan IV, Bedi K, Magnuson B, McShane A, Ashaka M, Paulsen M, Wilson TE, Lju
 
 --------
 
-Former biorxiv citation:
+*Former biorxiv citation*:
 Isoform and pathway-specific regulation of post-transcriptional RNA processing in human cells.
 Karan Bedi, Brian Magnuson, Ishwarya Venkata Narayanan, Ariel McShane, Mario Ashaka, Michelle T. Paulsen, Thomas E. Wilson, Mats Ljungman.
 bioRxiv 2024.06.12.598705; doi: https://doi.org/10.1101/2024.06.12.598705
