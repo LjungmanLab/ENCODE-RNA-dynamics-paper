@@ -3,8 +3,10 @@
 This repository contains data generation and analysis code used in this paper:
 
 Isoform and pathway-specific regulation of post-transcriptional RNA processing in human cells.
-Narayanan IV, Bedi K, Magnuson B, McShane A, Ashaka M, Paulsen M, Wilson TE, Ljungman M. Isoform- and pathway-specific regulation of post-transcriptional RNA processing in human cells. Genome Res. 2026 Mar 26:gr.280892.125. PMID: 41887799. doi: 10.1101/gr.280892.125. 
-Epub ahead of print. .
+Narayanan IV, Bedi K, Magnuson B, McShane A, Ashaka M, Paulsen M, Wilson TE, Ljungman M. Isoform- and pathway-specific regulation of post-transcriptional RNA processing in human cells. Genome Res. 2026 Mar 26:gr.280892.125. PMID: 41887799. doi: [10.1101/gr.280892.125](https://doi.org/10.1101/gr.280892.125)
+ 
+
+Epub ahead of print.
 
 --------
 
